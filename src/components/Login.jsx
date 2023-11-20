@@ -47,12 +47,13 @@ function Login() {
     const pid = await promise.$id;
     const pname = await promise.name;
     console.log("inside console : " + "\npid : " + pid + "\npname :" + pname);
+    def(pid);
     await setcurData({ id: pid, name: pname });
   };
 
-  const def = async () => {
+  const def = async (pid) => {
     // if (curData.id == null || curData.id.length == 0) return;
-    const dat = dataService.fetchRecordAll(curData.id);
+    const dat = dataService.fetchRecordAll(pid);
     await dat.then(
       function (response) {
         setallData(response.documents);
@@ -83,9 +84,9 @@ function Login() {
     );
   };
 
-  useEffect(() => {
-    def();
-  }, [curData]);
+  // useEffect(() => {
+  //   def();
+  // }, [curData]);
 
   // const [oldArray, setOldArray] = useState([]);
 
@@ -143,7 +144,7 @@ function Login() {
   };
 
   const gotoHome = async () => {
-    const promis = await authService.login("q@gmail.com", "11111111");
+    const promis = await authService.login("n@gmail.com", "11111111");
     await currectUser();
     navigate("/home");
   };

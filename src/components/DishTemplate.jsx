@@ -4,7 +4,7 @@ import { dataService } from "../appwrite/Config";
 import { useDispatch, useSelector } from "react-redux";
 import { reduxAddDish, reduxUpdateDish } from "../store/dishSlice";
 import { produce } from "immer";
-import { v4 as uuidv4 } from "uuid";
+
 // const uniqueId = uuidv4();
 // import pizza from "../assets/Data/mainDishImages/pizza.jpg";
 
@@ -53,7 +53,8 @@ const DishTemplate = ({ dishId, userId, dishName, dishPrice, url, first }) => {
           );
           console.log("update");
         } else {
-          const uniqueSlugId = uuidv4();
+          let uniqueSlugId = Date.now().toString();
+          uniqueSlugId = uniqueSlugId + Date.now().toString();
           console.log(uniqueSlugId);
           dataService.addRecord(
             uniqueSlugId,

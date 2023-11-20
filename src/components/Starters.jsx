@@ -11,6 +11,7 @@ import { reduxShowDish, reduxRestoreOldDish } from "../store/dishSlice";
 import main_bg from "/assets/Data/backgrounds/starters.jpg";
 
 const Home = () => {
+  const storedData = useSelector((state) => state.dish.dishes);
   const dispatch = useDispatch();
   const dishes = useSelector((state) => state.dish.dishes);
 
@@ -41,13 +42,18 @@ const Home = () => {
 
   const currectUser = async () => {
     const promise = await authService.getCurrentUser();
-    const pid = promise.$id;
-    const pname = promise.name;
-    setuserData({ id: pid, name: pname });
+    if (promise) {
+      const pid = promise.$id;
+      const pname = promise.name;
+      setuserData({ id: pid, name: pname });
+    } else {
+      setuserData({ id: "", name: "" });
+    }
   };
 
   const disp = () => {
-    // console.log(userData.id);
+    console.log("buttonsjhfgv");
+    console.log(userData.name);
     console.log(dishes);
   };
   const dadd = () => {
@@ -93,6 +99,7 @@ const Home = () => {
 
   const offSearch = () => {
     setShowSecondDiv(false);
+    setshowAbsolute(false);
   };
   const dontDisapear = (event) => {
     event.stopPropagation();
@@ -163,6 +170,12 @@ const Home = () => {
     setShowSecondDiv(true);
   };
 
+  useEffect(() => {
+    if (storedData.length > 0) setshowAbsolute(true);
+  }, [storedData]);
+
+  const [showAbsolute, setshowAbsolute] = useState(false);
+
   // const dishTemplates = array.map((dish, index) => (
   //   <DishTemplate
   //     key={index} // It's important to include a unique key when using map in React
@@ -182,6 +195,11 @@ const Home = () => {
       style={{ backgroundColor: "black" }}
       onScroll={offSearch}
     >
+      {showAbsolute && (
+        <div className="absolute z-20 mt-[1rem] ml-[66rem] border-2 border-white text-white text-[2rem] w-[20rem] h-[5rem] bg-gray-700 rounded-lg text-center items-center flex justify-center bg-opacity-75">
+          Item added to cart
+        </div>
+      )}
       {/* <button onClick={disp} className="border-2 border-black">
         click me
       </button>
