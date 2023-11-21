@@ -1,8 +1,3 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This is a Reastaurant application Made using react and appwrite (an open source backend/database server provider).
+In the current version of hosted application ( https://react-main-project.vercel.app ), appwrite doesnt allow me to use it for public hosting purpose.
+However this link ( https://react-main-project-dummy.vercel.app ) is for the same project but with out appwrite database
