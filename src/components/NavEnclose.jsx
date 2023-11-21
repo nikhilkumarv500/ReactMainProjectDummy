@@ -8,36 +8,37 @@ import { reduxRestoreOldDish } from "../store/dishSlice";
 
 const NavEnclose = () => {
   const storedData = useSelector((state) => state.dish.dishes);
+  const storedUser = useSelector((state) => state.ath);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [userData, setuserData] = useState({
-    id: "",
-    name: "",
+    id: "12345",
+    name: storedUser.name,
   });
-  useEffect(() => {
-    currectUser();
-    // setdishTemplates(dummyTemplates);
-  }, []);
-  useEffect(() => {
-    currectUser();
-    // setdishTemplates(dummyTemplates);
-  }, [storedData]);
-  const currectUser = async () => {
-    const promise = await authService.getCurrentUser();
-    if (promise) {
-      const pid = promise.$id;
-      const pname = promise.name;
-      setuserData({ id: pid, name: pname });
-    } else {
-      setuserData({ id: "", name: "" });
-    }
-  };
-  const fun = () => {
-    setuserData({
-      id: "aa",
-      name: "Nikhil kuame V",
-    });
-  };
+  // useEffect(() => {
+  //   currectUser();
+  //   // setdishTemplates(dummyTemplates);
+  // }, []);
+  // useEffect(() => {
+  //   currectUser();
+  //   // setdishTemplates(dummyTemplates);
+  // }, [storedData]);
+  // const currectUser = async () => {
+  //   const promise = await authService.getCurrentUser();
+  //   if (promise) {
+  //     const pid = promise.$id;
+  //     const pname = promise.name;
+  //     setuserData({ id: pid, name: pname });
+  //   } else {
+  //     setuserData({ id: "", name: "" });
+  //   }
+  // };
+  // const fun = () => {
+  //   setuserData({
+  //     id: "aa",
+  //     name: "Nikhil kuame V",
+  //   });
+  // };
 
   const goToHome = () => {
     navigate("/home");
@@ -50,9 +51,9 @@ const NavEnclose = () => {
   };
 
   const gotoLogout = () => {
-    authService.logout();
+    // authService.logout();
     console.log("logout");
-    dispatch(reduxRestoreOldDish());
+    dispatch(reduxRestoreOldDish([]));
     navigate("/login");
   };
 

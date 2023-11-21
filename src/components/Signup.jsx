@@ -5,6 +5,7 @@ import authService from "../appwrite/Auth";
 // import { login as authLogin } from "../store/authSlice";
 import { useDispatch } from "react-redux";
 import logo from "/assets/Data/logo/logo.jpg";
+import { reduxAddAuth, reduxShowAuth } from "../store/authSlice";
 
 function Login() {
   const navigate = useNavigate();
@@ -39,35 +40,43 @@ function Login() {
     e.preventDefault();
     setshowError(false);
     if (valid()) {
-      try {
-        const promise = authService.signup(
-          user.email,
-          user.password,
-          user.name
-        );
-        console.log("promise : " + promise);
-        promise.then(
-          function (response) {
-            console.log("response :" + response);
-            authService.login(user.email, user.password);
-            console.log("trying");
-            navigate("/home");
-          },
-          function (error) {
-            console.log(error);
-          }
-        );
-        // if (promise) {
-        //   // dispatch(authLogin(userAccount));
-        //   console.log("tryinf : " + promise);
-        //   const promis = await authService.login(user.email, user.password);
-        //   navigate("/home");
-        // } else console.log("false");
-      } catch (error) {
-        console.log(error);
-      }
-    } else {
-      setshowError(true);
+      dispatch(
+        reduxAddAuth({
+          gmail: user.email,
+          name: user.name,
+          password: user.password,
+        })
+      );
+      navigate("/home");
+      //   try {
+      //     const promise = authService.signup(
+      //       user.email,
+      //       user.password,
+      //       user.name
+      //     );
+      //     console.log("promise : " + promise);
+      //     promise.then(
+      //       function (response) {
+      //         console.log("response :" + response);
+      //         authService.login(user.email, user.password);
+      //         console.log("trying");
+      //         navigate("/home");
+      //       },
+      //       function (error) {
+      //         console.log(error);
+      //       }
+      //     );
+      //     // if (promise) {
+      //     //   // dispatch(authLogin(userAccount));
+      //     //   console.log("tryinf : " + promise);
+      //     //   const promis = await authService.login(user.email, user.password);
+      //     //   navigate("/home");
+      //     // } else console.log("false");
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+      // } else {
+      //   setshowError(true);
     }
   };
 
@@ -138,6 +147,7 @@ function Login() {
               Password should contain
               <span className="font-bold"> more then 7</span> words
             </span>
+            <span>Goto to login page for more details</span>
           </div>
         )}
       </div>

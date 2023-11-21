@@ -85,8 +85,8 @@ const CartPayment = () => {
               </div>
               <div className="flex mt-2">
                 <div>Price: </div>
-                <div className="ml-2">{obj.dishQuantity * obj.dishPrice}</div>
-                <div> $</div>
+                <div className="ml-2">{obj.dishQuantity * obj.dishPrice} </div>
+                <div> ₹</div>
               </div>
             </div>
           </div>

@@ -4,12 +4,17 @@ import { Link, useNavigate } from "react-router-dom";
 import authService from "../appwrite/Auth";
 import { useDispatch, useSelector } from "react-redux";
 import { reduxRestoreOldDish, reduxShowDish } from "../store/dishSlice";
+
 import { dataService } from "../appwrite/Config";
 import logo from "/assets/Data/logo/logo.jpg";
 import Caution from "./Caution";
+import { reduxAddAuth, reduxShowAuth } from "../store/authSlice";
 
 function Login() {
   const rrr = useSelector((state) => state.dish.dishes);
+  const userData = useSelector((state) => state.ath);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const dis = () => {
     // console.log(oldArray);
@@ -20,14 +25,16 @@ function Login() {
     }
     console.log("dis");
   };
-  const navigate = useNavigate();
 
-  const dispatch = useDispatch();
   const [alldata, setallData] = useState([]);
 
   const aaa = {
     // backgroundImage: `url(${main_bg})`,
   };
+  // const [user, setUser] = useState({
+  //   email: "n@gmail.com",
+  //   password: "123456789",
+  // });
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -37,52 +44,52 @@ function Login() {
     name: "",
   });
 
-  useEffect(() => {
-    currectUser();
-  }, []);
+  // useEffect(() => {
+  //   currectUser();
+  // }, []);
 
-  const currectUser = async () => {
-    const promise = await authService.getCurrentUser();
+  // const currectUser = async () => {
+  //   const promise = await authService.getCurrentUser();
 
-    const pid = await promise.$id;
-    const pname = await promise.name;
-    console.log("inside console : " + "\npid : " + pid + "\npname :" + pname);
-    def(pid);
-    await setcurData({ id: pid, name: pname });
-  };
+  //   const pid = await promise.$id;
+  //   const pname = await promise.name;
+  //   console.log("inside console : " + "\npid : " + pid + "\npname :" + pname);
+  //   def(pid);
+  //   await setcurData({ id: pid, name: pname });
+  // };
 
-  const def = async (pid) => {
-    // if (curData.id == null || curData.id.length == 0) return;
-    const dat = dataService.fetchRecordAll(pid);
-    await dat.then(
-      function (response) {
-        setallData(response.documents);
-        const narr = response.documents;
-        dispatch(reduxRestoreOldDish([]));
-        const accumulate = [];
-        narr.map((dish) =>
-          accumulate.push([
-            {
-              dishUniqueSlugId: dish.$id,
-              dishId: dish.dishId,
-              userId: dish.userId,
-              dishName: dish.dishName,
-              dishPrice: dish.dishPrice,
-              dishUrl: dish.dishUrl,
-              dishQuantity: dish.dishQuantity,
-            },
-          ])
-        );
-        // setOldArray(accumulate);
-        dispatch(reduxRestoreOldDish(accumulate));
+  // const def = async (pid) => {
+  //   // if (curData.id == null || curData.id.length == 0) return;
+  //   const dat = dataService.fetchRecordAll(pid);
+  //   await dat.then(
+  //     function (response) {
+  //       setallData(response.documents);
+  //       const narr = response.documents;
+  //       dispatch(reduxRestoreOldDish([]));
+  //       const accumulate = [];
+  //       narr.map((dish) =>
+  //         accumulate.push([
+  //           {
+  //             dishUniqueSlugId: dish.$id,
+  //             dishId: dish.dishId,
+  //             userId: dish.userId,
+  //             dishName: dish.dishName,
+  //             dishPrice: dish.dishPrice,
+  //             dishUrl: dish.dishUrl,
+  //             dishQuantity: dish.dishQuantity,
+  //           },
+  //         ])
+  //       );
+  //       // setOldArray(accumulate);
+  //       dispatch(reduxRestoreOldDish(accumulate));
 
-        // console.log(response.documents);
-      },
-      function (error) {
-        console.log(error);
-      }
-    );
-  };
+  //       // console.log(response.documents);
+  //     },
+  //     function (error) {
+  //       console.log(error);
+  //     }
+  //   );
+  // };
 
   // useEffect(() => {
   //   def();
@@ -121,18 +128,29 @@ function Login() {
     e.preventDefault();
     setcorrect(false);
     try {
-      const promis = await authService.login(user.email, user.password);
+      // const promis = await authService.login(user.email, user.password);
       // setOldArray([]);
       // console.log(promis);
-      if (promis) {
-        console.log("inside");
-        await currectUser();
+      if (user.email == "n@gmail.com" && user.password == "123456789") {
+        // console.log("inside");
+        // await currectUser();
         // if (oldArray.length > 0) {
         // console.log("hurray");
         // dis();
         // }
+        dispatch(
+          reduxAddAuth({
+            gmail: "n@gmail.com",
+            name: "Nikhil",
+            password: "123456789",
+          })
+        );
+        dispatch(reduxShowAuth());
         navigate("/home");
-      } else console.log("false");
+      } else {
+        console.log("false");
+        setcorrect(true);
+      }
     } catch (error) {
       console.log(error);
       setcorrect(true);
@@ -143,10 +161,20 @@ function Login() {
     }
   };
 
-  const gotoHome = async () => {
-    const promis = await authService.login("n@gmail.com", "11111111");
-    await currectUser();
-    navigate("/home");
+  const gotoHome = async (e) => {
+    // const promis = await authService.login("n@gmail.com", "11111111");
+    // await currectUser();
+    await setUser({ email: "n@gmail.com", password: "123456789" });
+    dispatch(
+      reduxAddAuth({
+        gmail: "n@gmail.com",
+        name: "Nikhil",
+        password: "123456789",
+      })
+    );
+
+    loginUser(e);
+    // navigate("/home");
   };
 
   const gotoHome2 = () => {
@@ -229,6 +257,7 @@ function Login() {
               Password should contain
               <span className="font-bold"> more then 7</span> words
             </span>
+            <spam>Please refresh the page & read the instructions once</spam>
           </div>
         )}
       </div>

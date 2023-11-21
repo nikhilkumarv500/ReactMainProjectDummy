@@ -31,7 +31,7 @@ const DishSmallTemplate = ({
   };
 
   const deleteDish = async () => {
-    const success = await dataService.deleteRecord(dishUniqueSlugId);
+    // const success = await dataService.deleteRecord(dishUniqueSlugId);
     // console.log("yet to be deleted: " + userId + " " + dishUniqueSlugId);
     dispatch(reduxDeleteDish({ userId, dishUniqueSlugId }));
     // console.log("deleted");
@@ -50,15 +50,15 @@ const DishSmallTemplate = ({
     // console.log(dishUniqueSlugId);
     // console.log(userId);
 
-    const promise = dataService.updateRecord(
-      dishUniqueSlugId,
-      dishId,
-      name,
-      userId,
-      quantity,
-      price,
-      url
-    );
+    // const promise = dataService.updateRecord(
+    //   dishUniqueSlugId,
+    //   dishId,
+    //   name,
+    //   userId,
+    //   quantity,
+    //   price,
+    //   url
+    // );
     dispatch(
       reduxUpdateDish({
         dishUniqueSlugId: dishUniqueSlugId,

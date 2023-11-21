@@ -98,7 +98,7 @@ export const dishSlice = createSlice({
           userId: obj.userId,
         },
       ]);
-      console.log("added in store");
+      // console.log("added in store");
       //     });
 
       //     console.log("Create new");
@@ -109,6 +109,7 @@ export const dishSlice = createSlice({
     },
     reduxUpdateDish: (state, action) => {
       const obj = action.payload;
+      // console.log(obj)
       for (let i = 0; i < state.dishes.length; i++) {
         if (
           state.dishes[i][0].userId === obj.userId &&
@@ -117,7 +118,7 @@ export const dishSlice = createSlice({
           state.dishes[i][0].dishQuantity = obj.dishQuantity;
         }
       }
-      console.log("updated in store");
+      // console.log("updated in store");
     },
     reduxShowDish: (state, action) => {
       console.log(state.dishes.dishes);

@@ -22,7 +22,7 @@ const Caution = () => {
     <>
       {show == false && (
         <div className="bg-gray-500 bg-opacity-75  min-h-screen flex justify-center items-center">
-          <div className="w-[30rem] flex flex-col justify-center text-center border-[0.1rem] rounded-xl border-white h-[30rem] bg-gray-400">
+          <div className="w-[30rem] flex flex-col justify-center text-center border-[0.1rem] rounded-xl border-white h-auto py-7 bg-gray-400">
             <spam className="text-red-600 text-[2rem] font-bold">CAUTION</spam>
             <spam className="font-bold">
               Please do not enter your real Gmail and password
@@ -35,9 +35,24 @@ const Caution = () => {
               Enter fake password with size{" "}
               <span className="font-bold">greater or equal to 8 words</span>
             </span>
+            <div className="border-2 flex-col flex w-[25rem] mt-7 ml-9 rounded-lg">
+              <span>
+                Default Login email :
+                <span className="font-bold"> n@gmail.com</span>
+              </span>
+              <span>
+                Default Login password :
+                <span className="font-bold"> 123456789</span>
+              </span>
+              <spam>Or else SignUp for new account</spam>
+            </div>
             <div className="border-2 w-[25rem] mt-7 ml-9 rounded-lg">
               This website is not fully responsive for small screens ,so it will
               not work properly on mobile devices
+            </div>
+            <div className="border-2 w-[25rem] mt-7 ml-9 rounded-lg">
+              The database used to store your details doesn't support public
+              access, so your login/signup data won't be stored.
             </div>
             <div className="flex mt-[3rem] justify-center">
               <button

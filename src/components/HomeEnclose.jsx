@@ -70,6 +70,11 @@ const HomeEnclose = () => {
             Deserts
           </button>
         </div>
+        <div className="mt-[13rem] border-0 border-black">
+          <button className="w-[8rem] h-full rounded-lg  hover:border-yellow-600 text[0.1rem] text-black bg-gray-400 ">
+            Nikhil kumar V
+          </button>
+        </div>
       </div>
 
       <div className="bg-black  w-full items-center  ">

@@ -17,8 +17,8 @@ const Home = () => {
 
   const [first, setfirst] = useState(1);
   const [userData, setuserData] = useState({
-    id: "",
-    name: "",
+    id: "1234",
+    name: "Nikhil",
   });
 
   const dishTemplates = array.map((dish, index) => (
@@ -35,21 +35,21 @@ const Home = () => {
 
   // setdishTemplates(dummyTemplates);
 
-  useEffect(() => {
-    currectUser();
-    // setdishTemplates(dummyTemplates);
-  }, []);
+  // useEffect(() => {
+  //   currectUser();
+  //   // setdishTemplates(dummyTemplates);
+  // }, []);
 
-  const currectUser = async () => {
-    const promise = await authService.getCurrentUser();
-    if (promise) {
-      const pid = promise.$id;
-      const pname = promise.name;
-      setuserData({ id: pid, name: pname });
-    } else {
-      setuserData({ id: "", name: "" });
-    }
-  };
+  // const currectUser = async () => {
+  //   const promise = await authService.getCurrentUser();
+  //   if (promise) {
+  //     const pid = promise.$id;
+  //     const pname = promise.name;
+  //     setuserData({ id: pid, name: pname });
+  //   } else {
+  //     setuserData({ id: "", name: "" });
+  //   }
+  // };
 
   const disp = () => {
     console.log("buttonsjhfgv");
@@ -200,12 +200,12 @@ const Home = () => {
           Item added to cart
         </div>
       )}
-      <button onClick={disp} className="border-2 border-black">
+      {/* <button onClick={disp} className="border-2 border-black">
         click me
       </button>
       <button onClick={dadd} className="border-2 border-black">
         click me
-      </button>
+      </button> */}
       <div
         className="border-[0.1rem] hover:border-red-500 h-[3rem] ml-[27rem] w-[35rem] mt-[4rem] mb-[-3rem] border-black rounded-lg text-black "
         onClick={catchword}

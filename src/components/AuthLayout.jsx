@@ -14,6 +14,7 @@ const AuthLayout = () => {
       style={{ backgroundColor: "black" }}
     >
       <Outlet />
+      {/* <div className="text-white text-[1.5rem] ml-[8rem]  ">Nikhil Kumar V</div> */}
       <style>
         {`
           @media (min-width: 640px) {

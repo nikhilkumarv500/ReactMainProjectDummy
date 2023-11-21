@@ -10,6 +10,7 @@ import { produce } from "immer";
 
 const DishTemplate = ({ dishId, userId, dishName, dishPrice, url, first }) => {
   //   console.log(name + " " + price + " " + url);
+  const storedData = useSelector((state) => state.dish.dishes);
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const inc = () => {
@@ -26,66 +27,100 @@ const DishTemplate = ({ dishId, userId, dishName, dishPrice, url, first }) => {
   };
 
   const addDish = () => {
-    const promise = dataService.getRecord(userId, dishId);
-
-    promise.then(
-      function (response) {
-        if (response.documents.length > 0) {
-          const promise = dataService.updateRecord(
-            response.documents[0].$id,
-            dishId,
-            dishName,
-            userId,
-            quantity,
-            dishPrice,
-            url
-          );
-          dispatch(
-            reduxUpdateDish({
-              dishUniqueSlugId: response.documents[0].$id,
-              dishId: dishId,
-              dishName: dishName,
-              userId: userId,
-              dishQuantity: quantity,
-              dishPrice: dishPrice,
-              dishUrl: url,
-            })
-          );
-          console.log("update");
-        } else {
-          let uniqueSlugId = Date.now().toString();
-          uniqueSlugId = uniqueSlugId + Date.now().toString();
-          console.log(uniqueSlugId);
-          dataService.addRecord(
-            uniqueSlugId,
-            dishId,
-            dishName,
-            userId,
-            quantity,
-            dishPrice,
-            url
-          );
-
-          dispatch(
-            reduxAddDish({
-              dishUniqueSlugId: uniqueSlugId,
-              dishId: dishId,
-              dishName: dishName,
-              userId: userId,
-              dishQuantity: quantity,
-              dishPrice: dishPrice,
-              dishUrl: url,
-            })
-          );
-          console.log("Create new");
-        }
-
-        // console.log(response.documents);
-      },
-      function (error) {
-        console.log(error);
+    // const promise = dataService.getRecord(userId, dishId);
+    for (let i = 0; i < storedData.length; i++) {
+      const obj = storedData[i][0];
+      // console.log(obj);
+      if (obj.dishId == dishId) {
+        dispatch(
+          reduxUpdateDish({
+            dishUniqueSlugId: obj.dishUniqueSlugId,
+            dishId: dishId,
+            dishName: dishName,
+            userId: userId,
+            dishQuantity: quantity,
+            dishPrice: dishPrice,
+            dishUrl: url,
+          })
+        );
+        console.log("add:update");
+        return;
       }
+    }
+
+    let uniqueSlugId = Date.now().toString();
+    uniqueSlugId = uniqueSlugId + Date.now().toString();
+    dispatch(
+      reduxAddDish({
+        dishUniqueSlugId: uniqueSlugId,
+        dishId: dishId,
+        dishName: dishName,
+        userId: userId,
+        dishQuantity: quantity,
+        dishPrice: dishPrice,
+        dishUrl: url,
+      })
     );
+    console.log("Create new");
+
+    // promise.then(
+    //   function (response) {
+    //     if (response.documents.length > 0) {
+    //       const promise = dataService.updateRecord(
+    //         response.documents[0].$id,
+    //         dishId,
+    //         dishName,
+    //         userId,
+    //         quantity,
+    //         dishPrice,
+    //         url
+    //       );
+    //       dispatch(
+    //         reduxUpdateDish({
+    //           dishUniqueSlugId: response.documents[0].$id,
+    //           dishId: dishId,
+    //           dishName: dishName,
+    //           userId: userId,
+    //           dishQuantity: quantity,
+    //           dishPrice: dishPrice,
+    //           dishUrl: url,
+    //         })
+    //       );
+    //       console.log("update");
+    //     } else {
+    //       let uniqueSlugId = Date.now().toString();
+    //       uniqueSlugId = uniqueSlugId + Date.now().toString();
+    //       console.log(uniqueSlugId);
+    //       dataService.addRecord(
+    //         uniqueSlugId,
+    //         dishId,
+    //         dishName,
+    //         userId,
+    //         quantity,
+    //         dishPrice,
+    //         url
+    //       );
+
+    //       dispatch(
+    //         reduxAddDish({
+    //           dishUniqueSlugId: uniqueSlugId,
+    //           dishId: dishId,
+    //           dishName: dishName,
+    //           userId: userId,
+    //           dishQuantity: quantity,
+    //           dishPrice: dishPrice,
+    //           dishUrl: url,
+    //         })
+    //       );
+    //       console.log("Create new");
+    //     }
+
+    // console.log(response.documents);
+    //   },
+    //   function (error) {
+    //     console.log(error);
+    //   }
+    // );
   };
 
   return (
